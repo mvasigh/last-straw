@@ -1,49 +1,41 @@
 <template>
-  <div>{{ hello }}</div>
+  <div>
+    <!-- show todo list -->
+    <h2>{{ title }}</h2>
+    <ul>
+      <li v-for="todo in todos" v-bind:key="todo">{{ todo }}</li>
+    </ul>
 
+    <!-- input and button to add to todo list -->
+    <input class="Input" type="text" v-model="todo">
+    <button v-on:click="addTodo">Add todo</button>
+  </div>
 </template>
 
 <script>
-const networkRequest = () => new Promise(resolve => {
-  setTimeout(() => resolve({hello: 'world'}), 3000);
-})
-
 export default {
-  name: 'HelloWorld',
-  data: function() {
-    // returns your initial state
-    return {
-      hello: 'loading...'
-    }
-  },
+  name: 'TodoList',
   props: {
-    msg: String,
-    id: Number
+    title: String
   },
-  mounted: function() {
-    // can do network request on mounted lifecycle hook
-    networkRequest().then(data => {
-      // set the state property you want directly on `this`
-      this.hello = data.hello
-    })
+  data: function() {
+    return {
+      todo: '',
+      todos: ['clean the sink']
+    };
+  },
+  methods: {
+    addTodo: function() {
+      const { todos, todo } = this;
+      this.todos = [...todos, todo]
+    }
   }
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
+.Input {
+  background: red;
 }
 </style>
