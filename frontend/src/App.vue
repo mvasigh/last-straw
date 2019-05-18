@@ -27,8 +27,6 @@
 
 <script>
 import DialogSurvey from './components/DialogSurvey';
-
-import Layout from './components/Layout';
 import Card from './components/Card';
 import Map from './components/Map';
 
@@ -36,7 +34,6 @@ export default {
   name: 'App',
   components: {
     DialogSurvey,
-    Layout,
     Card,
     Map
   },
