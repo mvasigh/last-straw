@@ -4,27 +4,30 @@
     <v-content>
       <div class="layout">
         <div class="sidebar">
-          <DialogSurvey/>
+          <Card />
+          <DialogSurvey />
         </div>
-        <div class="map">map here</div>
+        <div class="map">
+          <Map />
+        </div>
       </div>
     </v-content>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
 import DialogSurvey from './components/DialogSurvey';
-import Layout from './components/Layout';
 import NavBar from './components/NavBar';
+import Card from './components/Card';
+import Map from './components/Map';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld,
     DialogSurvey,
-    Layout,
-    NavBar
+    NavBar,
+    Card,
+    Map
   },
   data() {
     return {
@@ -49,6 +52,8 @@ export default {
 .sidebar {
   background: #eee;
   flex-basis: 40%;
+  z-index: 1;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
 
   @media (min-width: 940px) {
     flex-direction: row;
@@ -59,5 +64,7 @@ export default {
 .map {
   flex-grow: 1;
   flex-basis: 60%;
+  height: 100%;
+  width: 100%;
 }
 </style>
