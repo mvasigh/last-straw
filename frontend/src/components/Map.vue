@@ -21,6 +21,9 @@ export default {
     LMap,
     LTileLayer
   },
+  props: {
+    pins: Array
+  },
   data () {
     return {
       url: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
