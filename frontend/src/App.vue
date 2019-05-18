@@ -14,6 +14,7 @@
     <v-content>
       <div class="layout">
         <div class="sidebar">
+          <Card />
           <DialogSurvey />
         </div>
         <div class="map">map here</div>
@@ -26,13 +27,15 @@
 import HelloWorld from './components/HelloWorld';
 import DialogSurvey from './components/DialogSurvey';
 import Layout from './components/Layout';
+import Card from './components/Card';
 
 export default {
   name: 'App',
   components: {
     HelloWorld,
     DialogSurvey,
-    Layout
+    Layout,
+    Card,
   },
   data() {
     return {
