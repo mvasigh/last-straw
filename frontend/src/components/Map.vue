@@ -27,8 +27,8 @@ export default {
   data () {
     return {
       url: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
-      zoom: 3,
-      center: [47.413220, -1.219482],
+      zoom: 12,
+      center: [29.7604, -95.3698],
       bounds: null
     };
   },
