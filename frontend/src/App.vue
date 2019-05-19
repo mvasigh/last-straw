@@ -8,7 +8,14 @@
           <DialogSurvey/>
         </div>
         <div class="map">
-          <Map v-on:bounds-updated="updateBounds"/>
+          <Map
+            :bounds="bounds"
+            :zoom="zoom"
+            :center="center"
+            @bounds-updated="updateBounds"
+            @center-updated="updateCenter"
+            @zoom-updated="updateZoom"
+          />
         </div>
       </div>
     </v-content>
@@ -22,6 +29,7 @@ import NavBar from './components/NavBar';
 import Card from './components/Card';
 import Map from './components/Map';
 import allPlaces from './data';
+import { getAllPlaces } from './lib/api';
 
 const isInbounds = (val, [min, max]) => val > min && val < max;
 
@@ -38,7 +46,9 @@ export default {
       allPlaces,
       places: allPlaces,
       query: '',
-      bounds: []
+      bounds: {},
+      center: [29.7604, -95.3698], // default to Houston, TX
+      zoom: 12
     };
   },
   watch: {
@@ -49,9 +59,27 @@ export default {
       this.filterPlaces();
     }
   },
+  mounted: function() {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition(position => {
+        const { coords } = position;
+        this.center = [coords.latitude, coords.longitude];
+        this.zoom = 15;
+      });
+    }
+    getAllPlaces()
+      .then(places => (this.allPlaces = places))
+      .catch(() => (this.allPlaces = allPlaces));
+  },
   methods: {
-    updateBounds(bounds) {
+    updateBounds: function(bounds) {
       this.bounds = bounds;
+    },
+    updateCenter: function(center) {
+      this.center = center;
+    },
+    updateZoom: function(zoom) {
+      this.zoom = zoom;
     },
     filterPlaces: debounce(300, function() {
       const places = this.allPlaces
@@ -60,10 +88,10 @@ export default {
           if (!this.query) return true;
           return place['Restaurant Name']
             .toLowerCase()
-            .includes(query.toLowerCase());
+            .includes(this.query.toLowerCase());
         })
         .filter(place => {
-          const [lat, lng] = [place.Latitude, place.Longitude];
+          const [lat, lng] = [place.lat, place.long];
           const { latRange, lngRange } = this.bounds;
           return isInbounds(lat, latRange) && isInbounds(lng, lngRange);
         });
@@ -95,6 +123,8 @@ export default {
   @media (min-width: 940px) {
     flex-direction: row;
     max-width: 500px;
+    max-height: 100%;
+    overflow-y: auto;
   }
 }
 

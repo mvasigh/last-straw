@@ -8,6 +8,7 @@
     "dev": "vue-cli-service serve"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "core-js": "^2.6.5",
     "leaflet": "^1.5.1",
     "material-design-icons-iconfont": "^3.0.3",
