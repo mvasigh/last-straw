@@ -2,7 +2,7 @@
   <v-layout>
     <v-card width="100%">
       <v-img
-        src="https://assets.simpleviewinc.com/simpleview/image/fetch/c_limit,h_640,q_60,w_800/https://assets.simpleviewinc.com/simpleview/image/upload/crm/houston/Niko-Niko-1_3ce738f4-fdbc-f6b6-bdb3824cf1b77b11.jpg"
+        :src="place.imageUrl"
         aspect-ratio="2.75"
       ></v-img>
       <v-card-title primary-title>

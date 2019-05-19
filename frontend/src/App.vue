@@ -74,7 +74,7 @@ export default {
     const visited = localStorage.getItem('has-visited');
     this.visited = Boolean(visited);
     getAllPlaces()
-      .then(places => (this.allPlaces = places))
+      .then(places => console.log(places) || (this.allPlaces = places))
       .catch(() => (this.allPlaces = allPlaces));
   },
   methods: {
