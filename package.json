@@ -1,0 +1,12 @@
+{
+  "name": "last-straw",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/mvasigh/last-straw.git",
+  "author": "Mehdi Vasigh <mehdi.vasigh@arundo.com>",
+  "license": "MIT",
+  "dependencies": {
+    "csv-parse": "^4.4.1",
+    "fs-extra": "^8.0.1"
+  }
+}
