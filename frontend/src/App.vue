@@ -4,8 +4,7 @@
     <v-content>
       <div class="layout">
         <div class="sidebar">
-          <Card/>
-          <DialogSurvey/>
+          <CardList/>
         </div>
         <div class="map">
           <Map
@@ -25,9 +24,8 @@
 
 <script>
 import { debounce } from 'throttle-debounce';
-import DialogSurvey from './components/DialogSurvey';
 import NavBar from './components/NavBar';
-import Card from './components/Card';
+import CardList from './components/CardList';
 import Map from './components/Map';
 import allPlaces from './data';
 import { getAllPlaces } from './lib/api';
@@ -37,9 +35,8 @@ const isInbounds = (val, [min, max]) => val > min && val < max;
 export default {
   name: 'App',
   components: {
-    DialogSurvey,
     NavBar,
-    Card,
+    CardList,
     Map
   },
   data: function() {

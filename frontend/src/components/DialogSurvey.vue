@@ -9,7 +9,7 @@
             dark
             v-on="on"
           >
-            Click Me
+            Rate Me
           </v-btn>
         </template>
         <v-card >
@@ -27,7 +27,7 @@
                 </div>
                 <div>
                    <v-radio-group v-model="form.Responses[index].Selection" >
-                    <v-radio 
+                    <v-radio
                         v-for="(option, index) in item.Selection"
                         :key="index"
                         :label="option"
@@ -43,7 +43,7 @@
             value="Leave us a note."
             hint="Hint text"
           ></v-textarea>
-          </v-card-text>       
+          </v-card-text>
           <v-divider></v-divider>
           <v-card-actions>
             <v-spacer></v-spacer>
@@ -89,7 +89,7 @@ export default {
         index: '',
         isSuccess: false,
         msgSuccess: 'thanks',
-        mockData: [       
+        mockData: [
         {
             Id: 1,
             Question: 'Do they use plastic straws?',
@@ -99,12 +99,12 @@ export default {
             Id: 2,
             Question: 'Was the packaging:',
             Selection: ['Styrofoam', 'Plastic', 'Compostable'],
-        }, 
+        },
         {
             Id: 3,
             Question: 'Do they use single-serve condiments?',
             Selection: ['Yes', 'No'],
-        },           
+        },
         ],
     }
     },
