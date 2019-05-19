@@ -41,6 +41,7 @@ export default {
     },
     boundsUpdated (bounds) {
       this.bounds = bounds;
+      console.log(bounds);
     }
   }
 }
