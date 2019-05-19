@@ -1,15 +1,15 @@
-# react-node-boilerplate
-Boilerplate for rapid app building with React, Node.js and Express. For hackathons, quick prototypes and scratch work.
+# Last Straw
+An application to help you find food service establishments nearby that avoid single-use plastics.
 
 ## Getting started (`frontend`)
-[Parcel](https://parceljs.org/) is used as the bundler and build tool for a basic React.js application.
+This project uses Vue.js and `vue-cli`. 
 
-To start the dev server (port 1234 by default):
+To start the dev server (port 8080 by default):
 ```
 $ yarn dev
 ```
 
-To build the application (`build` directory by default):
+To build the application:
 ```
 $ yarn build
 ```
