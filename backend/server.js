@@ -17,7 +17,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Connecting to the Database
 // Development
 const sequelize = new Sequelize(
-  'postgres://rdeboeor:apSXDd2s_Cu3frmThQCmWJIjvjCrg9Qs@isilo.db.elephantsql.com:5432/rdeboeor'
+  // v1 (no image support)
+  // 'postgres://rdeboeor:apSXDd2s_Cu3frmThQCmWJIjvjCrg9Qs@isilo.db.elephantsql.com:5432/rdeboeor'
+  // v2 (with image support)
+  'postgres://ltjsfegh:PnRnB9xgiT3-kXb4Ef4RIXpt2zWDceUa@raja.db.elephantsql.com:5432/ltjsfegh'
 );
 
 // Defining Models for interacting with Database
@@ -25,6 +28,10 @@ const Place = sequelize.define('place', {
   name: {
     type: Sequelize.STRING,
     allowNull: false
+  },
+  imageUrl: {
+    type: Sequelize.STRING,
+    allowNull: true
   },
   address: {
     type: Sequelize.STRING,
@@ -74,6 +81,7 @@ app.get('/places', (req, res) => {
 app.post('/places', (req, res) => {
   Place.create({
     name: req.body.name,
+    imageUrl: req.body.image,
     address: req.body.address,
     lat: req.body.lat,
     long: req.body.long,
@@ -97,6 +105,7 @@ app.put('/places/:id', (req, res, next) => {
   Place.update(
     {
       name: req.body.name,
+      imageUrl: req.body.image,
       address: req.body.address,
       lat: req.body.lat,
       long: req.body.long,
