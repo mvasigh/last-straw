@@ -60,7 +60,7 @@ export default {
           if (!this.query) return true;
           return place['Restaurant Name']
             .toLowerCase()
-            .includes(query.toLowerCase());
+            .includes(this.query.toLowerCase());
         })
         .filter(place => {
           const [lat, lng] = [place.Latitude, place.Longitude];
@@ -95,6 +95,8 @@ export default {
   @media (min-width: 940px) {
     flex-direction: row;
     max-width: 500px;
+    max-height: 100%;
+    overflow-y: auto;
   }
 }
 
