@@ -14,14 +14,6 @@
 </template>
 
 <script>
-// starting bounds
-// _northEast: LatLng
-// lat: 29.887387948026454
-// lng: -95.25901794433594
-// _southWest: LatLng
-// lat: 29.633457007900898
-// lng: -95.48046112060548
-
 import { LMap, LTileLayer } from 'vue2-leaflet';
 
 const getRange = (val1, val2) => [Math.min(val1, val2), Math.max(val1, val2)];
