@@ -4,7 +4,7 @@
     <v-content>
       <div class="layout">
         <div class="sidebar">
-          <CardList/>
+          <CardList :places="places" />
         </div>
         <div class="map">
           <Map
