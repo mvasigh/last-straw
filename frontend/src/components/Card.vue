@@ -51,12 +51,28 @@
 <script>
 import DialogSurvey from './DialogSurvey';
 
+const placeholder = 'https://file.videopolis.com/D/9dc9f4ba-0b2d-4cbb-979f-fee7be8a4198/8485.11521.brussels.the-hotel-brussels.amenity.restaurant-AD3WAP2L-13000-853x480.jpeg'
+
 export default {
   props: {
     place: Object
   },
+  data: function() {
+    return {
+      image: placeholder
+    }
+  },
   components: {
     DialogSurvey
+  },
+  watch: {
+    place: function() {
+      if (!this.place || !this.place.imageUrl) return this.image = placeholder;
+      if (this.place.imageUrl.includes('photoreference=&')) {
+        this.image = placeholder;
+      }
+      this.image = place.imageUrl
+    }
   },
   data() {
     return {
