@@ -8,7 +8,14 @@
           <DialogSurvey/>
         </div>
         <div class="map">
-          <Map v-on:bounds-updated="updateBounds"/>
+          <Map
+            :bounds="bounds"
+            :zoom="zoom"
+            :center="center"
+            @bounds-updated="updateBounds"
+            @center-updated="updateCenter"
+            @zoom-updated="updateZoom"
+          />
         </div>
       </div>
     </v-content>
@@ -22,6 +29,7 @@ import NavBar from './components/NavBar';
 import Card from './components/Card';
 import Map from './components/Map';
 import allPlaces from './data';
+import { getAllPlaces } from './lib/api';
 
 const isInbounds = (val, [min, max]) => val > min && val < max;
 
@@ -38,7 +46,9 @@ export default {
       allPlaces,
       places: allPlaces,
       query: '',
-      bounds: []
+      bounds: {},
+      center: [29.7604, -95.3698], // default to Houston, TX
+      zoom: 12
     };
   },
   watch: {
@@ -49,9 +59,25 @@ export default {
       this.filterPlaces();
     }
   },
+  mounted: function() {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition(position => {
+        const { coords } = position;
+        this.center = [coords.latitude, coords.longitude];
+        this.zoom = 15;
+      });
+    }
+    getAllPlaces().then(places => console.log(places));
+  },
   methods: {
-    updateBounds(bounds) {
+    updateBounds: function(bounds) {
       this.bounds = bounds;
+    },
+    updateCenter: function(center) {
+      this.center = center;
+    },
+    updateZoom: function(zoom) {
+      this.zoom = zoom;
     },
     filterPlaces: debounce(300, function() {
       const places = this.allPlaces
