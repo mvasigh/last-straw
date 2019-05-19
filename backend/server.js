@@ -75,15 +75,23 @@ app.get('/', (req, res) => {
   res.send('hello world');
 });
 
-// Test connection with remote SQL database
-sequelize
-  .authenticate()
-  .then(() => {
-    console.log('Connection has been established successfully.');
-  })
-  .catch(err => {
-    console.error('Unable to connect to the database:', err);
+// Places Routes
+// Get a single place
+app.get('/places/:id', (req, res) => {
+  Place.findOne({ where: { id: req.params.id } }).then(place => {
+    return res.send(place);
   });
+});
+
+// Test connection with remote SQL database
+// sequelize
+//   .authenticate()
+//   .then(() => {
+//     console.log('Connection has been established successfully.');
+//   })
+//   .catch(err => {
+//     console.error('Unable to connect to the database:', err);
+//   });
 
 // Easily setup/seed database
 const eraseDatabaseOnSync = true;
