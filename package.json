@@ -6,6 +6,7 @@
   "author": "Mehdi Vasigh <mehdi.vasigh@arundo.com>",
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.18.0",
     "csv-parse": "^4.4.1",
     "fs-extra": "^8.0.1"
   }
