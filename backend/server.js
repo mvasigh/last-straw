@@ -57,11 +57,34 @@ const Place = sequelize.define('place', {
 });
 
 // ROUTES
+// Root
 app.get('/', (req, res) => {
-  res.send('hello world');
+  res.send('I am the destroyer of straws!');
 });
 
 // Places Routes
+// Return all places
+app.get('/places', (req, res) => {
+  Place.findAll().then(places => {
+    return res.send(places);
+  });
+});
+
+// Create a new place
+app.post('/places', (req, res) => {
+  Place.create({
+    name: req.body.name,
+    address: req.body.address,
+    lat: req.body.lat,
+    long: req.body.long,
+    styrofoam: req.body.styrofoam,
+    plastic: req.body.plastic,
+    icondiments: req.body.condiments,
+    compostable: req.body.compostable
+  });
+  res.send('POST reached!');
+});
+
 // Get a single place
 app.get('/places/:id', (req, res) => {
   Place.findOne({ where: { id: req.params.id } }).then(place => {
@@ -69,15 +92,35 @@ app.get('/places/:id', (req, res) => {
   });
 });
 
-// Test connection with remote SQL database
-// sequelize
-//   .authenticate()
-//   .then(() => {
-//     console.log('Connection has been established successfully.');
-//   })
-//   .catch(err => {
-//     console.error('Unable to connect to the database:', err);
-//   });
+// Update a single place
+app.put('/places/:id', (req, res, next) => {
+  Place.update(
+    {
+      name: req.body.name,
+      address: req.body.address,
+      lat: req.body.lat,
+      long: req.body.long,
+      styrofoam: req.body.styrofoam,
+      plastic: req.body.plastic,
+      icondiments: req.body.condiments,
+      compostable: req.body.compostable
+    },
+    { returning: true, where: { id: req.params.id } }
+  )
+    .then(function([rowsUpdate, [updatedPlace]]) {
+      res.json(updatedPlace);
+    })
+    .catch(next);
+});
+
+// Delete a single place
+app.delete('/places/:id', (req, res) => {
+  Place.destroy({
+    where: { id: req.params.id }
+  }).then(deletedPlace => {
+    res.json(deletedPlace);
+  });
+});
 
 // Easily setup/seed database
 const eraseDatabaseOnSync = false;
