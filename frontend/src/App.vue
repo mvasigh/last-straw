@@ -4,7 +4,7 @@
     <v-content>
       <div class="layout">
         <div class="sidebar">
-          <CardList :places="places" />
+          <CardList :places="places"/>
         </div>
         <div class="map">
           <Map
@@ -19,7 +19,9 @@
         </div>
       </div>
     </v-content>
-    <PagingDialog v-if="!visited" @dialog-close="hasVisited"></PagingDialog>
+    <template v-if="!visited">
+      <PagingDialog @dialog-close="hasVisited"></PagingDialog>
+    </template>
   </v-app>
 </template>
 
@@ -50,6 +52,7 @@ export default {
       bounds: {},
       center: [29.7604, -95.3698], // default to Houston, TX
       zoom: 12,
+      visited: true
     };
   },
   watch: {
@@ -84,7 +87,7 @@ export default {
     updateZoom: function(zoom) {
       this.zoom = zoom;
     },
-    filterPlaces: debounce(500, function() {
+    filterPlaces: debounce(1000, function() {
       const places = this.allPlaces
         .filter(place => {
           // filter by query
