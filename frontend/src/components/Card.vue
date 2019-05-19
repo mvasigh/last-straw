@@ -19,7 +19,9 @@
     </v-card-title>
     <v-card-title secondary-title>{{place.address}}</v-card-title>
     <v-card-text>{{place.name}} doesn't use plastic straws. You're saving a potential 10 tons of plastic waste.</v-card-text>
-    <DialogSurvey :open="openDialog"/>
+    <template v-if="openDialog">
+      <DialogSurvey :open="openDialog"/>
+    </template>
     <v-card-actions>
       <v-btn flat color="primary" @click="handleOpenDialog">Rate</v-btn>
     </v-card-actions>
@@ -41,7 +43,7 @@ export default {
   data() {
     return {
       img: null,
-      openDialog: false,
+      openDialog: false
     };
   },
   computed: {

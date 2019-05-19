@@ -87,7 +87,7 @@ export default {
     updateZoom: function(zoom) {
       this.zoom = zoom;
     },
-    filterPlaces: debounce(500, function() {
+    filterPlaces: debounce(1000, function() {
       const places = this.allPlaces
         .filter(place => {
           // filter by query

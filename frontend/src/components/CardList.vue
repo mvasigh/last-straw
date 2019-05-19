@@ -25,7 +25,7 @@ export default {
 
 <style lang="scss">
 .card-list {
-  max-height: 100%;
+  max-height: 100vh;
   overflow-y: scroll;
 }
 </style>
