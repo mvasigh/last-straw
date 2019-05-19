@@ -94,7 +94,7 @@ export default {
           return isInbounds(lat, latRange) && isInbounds(lng, lngRange);
         });
       this.places = places;
-      console.log(this.places);
+      // console.log(this.places);
     })
   }
 };
