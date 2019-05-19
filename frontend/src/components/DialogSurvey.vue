@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="open" width="500">
+  <v-dialog v-model="dialogOpen" width="500">
     <v-card>
       <v-card-title class="headline grey lighten-2 titleContainer" primary-title>
         <h4 class="title">Complete the Survey</h4>
@@ -42,11 +42,10 @@
 
 export default {
   props: {
-    open: false
+    dialogOpen: Boolean
   },
   data() {
     return {
-      isOpen: false,
       form: {
         Comment: null,
         Responses: [
@@ -99,10 +98,8 @@ export default {
       this.isOpen = false;
     },
     submit: function() {
-      // if (this.$v.form.$invalid) {
-      //     return console.log('error')
-      // };
       this.isSuccess = true;
+      this.$emit('close-dialog')
     }
   }
   // validations: {
