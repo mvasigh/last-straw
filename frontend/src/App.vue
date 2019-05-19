@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <NavBar/>
+    <NavBar :query="query" @query-change="handleQueryChange" />
     <v-content>
       <div class="layout">
         <div class="sidebar">
@@ -92,7 +92,7 @@ export default {
         .filter(place => {
           // filter by query
           if (!this.query) return true;
-          return place['Restaurant Name']
+          return place.name
             .toLowerCase()
             .includes(this.query.toLowerCase());
         })
@@ -105,6 +105,10 @@ export default {
     }),
     hasVisited: function() {
       localStorage.setItem('has-visited', true);
+    },
+    handleQueryChange: function(query) {
+      console.log({query})
+      this.query = query;
     }
   }
 };

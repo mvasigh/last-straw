@@ -5,12 +5,21 @@
       <span class="font-weight-light">STRAW</span>
     </v-toolbar-title>
     <v-spacer></v-spacer>
-    <v-text-field hide-details prepend-icon="search" single-line></v-text-field>
+    <v-text-field @input="emitQuery" hide-details prepend-icon="search" single-line></v-text-field>
   </v-toolbar>
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    query: String
+  },
+  methods: {
+    emitQuery: function(input) {
+      this.$emit('query-change', input)
+    }
+  }
+};
 </script>
 
 <style>
