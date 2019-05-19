@@ -19,6 +19,7 @@
         </div>
       </div>
     </v-content>
+    <PagingDialog v-if="!visited" @dialog-close="hasVisited"></PagingDialog>
   </v-app>
 </template>
 
@@ -27,6 +28,7 @@ import { debounce } from 'throttle-debounce';
 import NavBar from './components/NavBar';
 import CardList from './components/CardList';
 import Map from './components/Map';
+import PagingDialog from './components/PagingDialog';
 import allPlaces from './data';
 import { getAllPlaces } from './lib/api';
 
@@ -37,6 +39,7 @@ export default {
   components: {
     NavBar,
     CardList,
+    PagingDialog,
     Map
   },
   data: function() {
@@ -46,7 +49,7 @@ export default {
       query: '',
       bounds: {},
       center: [29.7604, -95.3698], // default to Houston, TX
-      zoom: 12
+      zoom: 12,
     };
   },
   watch: {
@@ -65,6 +68,8 @@ export default {
         this.zoom = 15;
       });
     }
+    const visited = localStorage.getItem('has-visited');
+    this.visited = Boolean(visited);
     getAllPlaces()
       .then(places => (this.allPlaces = places))
       .catch(() => (this.allPlaces = allPlaces));
@@ -94,8 +99,10 @@ export default {
           return isInbounds(lat, latRange) && isInbounds(lng, lngRange);
         });
       this.places = places;
-      // console.log(this.places);
-    })
+    }),
+    hasVisited: function() {
+      localStorage.setItem('has-visited', true);
+    }
   }
 };
 </script>
