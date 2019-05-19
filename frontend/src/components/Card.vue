@@ -6,11 +6,14 @@
           src="https://assets.simpleviewinc.com/simpleview/image/fetch/c_limit,h_640,q_60,w_800/https://assets.simpleviewinc.com/simpleview/image/upload/crm/houston/Niko-Niko-1_3ce738f4-fdbc-f6b6-bdb3824cf1b77b11.jpg"
           aspect-ratio="2.75"
         ></v-img>
-        <v-card-title primary-title>Niko Niko's [icon] [icon] [icon]
+        <v-card-title primary-title>{{place.name}}
+          <span v-if="place.plastic===false"><img src="../assets/straws.png"/></span>
+          <span v-if="place.styrofoam===false"><img src="../assets/containers.png"/></span>
+          <span v-if="place.icondiments===false"><img src="../assets/condiments.png"/></span>
         </v-card-title>
-        <v-card-title secondary-title>123 Smith St., Houston, TX.</v-card-title>
+        <v-card-title secondary-title>{{place.address}}</v-card-title>
         <v-card-text>
-        Niko Niko doesn't use plastic straws. You're saving a potential 10 tons of plastic waste.
+        {{place.name}} doesn't use plastic straws. You're saving a potential 10 tons of plastic waste.
         </v-card-text>
         <DialogSurvey />
       </v-card>
@@ -22,8 +25,23 @@
 import DialogSurvey from './DialogSurvey';
 
 export default {
+  props: {
+    place: Object
+  },
   components: {
     DialogSurvey,
+  },
+  data() {
+    return {
+      //
+    };
   }
 }
 </script>
+
+<style scoped>
+  img {
+    width: 2em;
+    margin: 0 .6em .8em .6em;
+  }
+</style>
