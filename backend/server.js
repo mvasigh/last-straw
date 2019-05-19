@@ -13,14 +13,14 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// DATABASE
+// DATABASE SETUP
 // Connecting to the Database
 // Development
 const sequelize = new Sequelize(
   'postgres://rdeboeor:apSXDd2s_Cu3frmThQCmWJIjvjCrg9Qs@isilo.db.elephantsql.com:5432/rdeboeor'
 );
 
-// Defining Models for Database
+// Defining Models for interacting with Database
 const Place = sequelize.define('place', {
   name: {
     type: Sequelize.STRING,
@@ -56,20 +56,6 @@ const Place = sequelize.define('place', {
   }
 });
 
-// Function to add random data to database
-const seedDatabase = async () => {
-  await Place.create({
-    name: 'Merida Mexican Restaurant',
-    address: '2509 Navigation Blvd, Houston, TX 77003',
-    lat: 29.7582547,
-    long: 95.34373,
-    styrofoam: true,
-    plastic: false,
-    icondiments: true,
-    compostable: false
-  });
-};
-
 // ROUTES
 app.get('/', (req, res) => {
   res.send('hello world');
@@ -94,7 +80,7 @@ app.get('/places/:id', (req, res) => {
 //   });
 
 // Easily setup/seed database
-const eraseDatabaseOnSync = true;
+const eraseDatabaseOnSync = false;
 const port = process.env.PORT || 3000;
 
 // Synchronize database and start Express server
