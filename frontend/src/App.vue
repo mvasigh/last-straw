@@ -4,11 +4,11 @@
     <v-content>
       <div class="layout">
         <div class="sidebar">
-          <Card />
-          <DialogSurvey />
+          <Card/>
+          <DialogSurvey/>
         </div>
         <div class="map">
-          <Map />
+          <Map v-on:bounds-updated="updateBounds"/>
         </div>
       </div>
     </v-content>
@@ -16,10 +16,14 @@
 </template>
 
 <script>
+import { debounce } from 'throttle-debounce';
 import DialogSurvey from './components/DialogSurvey';
 import NavBar from './components/NavBar';
 import Card from './components/Card';
 import Map from './components/Map';
+import allPlaces from './data';
+
+const isInbounds = (val, [min, max]) => val > min && val < max;
 
 export default {
   name: 'App',
@@ -29,10 +33,43 @@ export default {
     Card,
     Map
   },
-  data() {
+  data: function() {
     return {
-      //
+      allPlaces,
+      places: allPlaces,
+      query: '',
+      bounds: []
     };
+  },
+  watch: {
+    query: function() {
+      this.filterPlaces();
+    },
+    bounds: function() {
+      this.filterPlaces();
+    }
+  },
+  methods: {
+    updateBounds(bounds) {
+      this.bounds = bounds;
+    },
+    filterPlaces: debounce(300, function() {
+      const places = this.allPlaces
+        .filter(place => {
+          // filter by query
+          if (!this.query) return true;
+          return place['Restaurant Name']
+            .toLowerCase()
+            .includes(query.toLowerCase());
+        })
+        .filter(place => {
+          const [lat, lng] = [place.Latitude, place.Longitude];
+          const { latRange, lngRange } = this.bounds;
+          return isInbounds(lat, latRange) && isInbounds(lng, lngRange);
+        });
+      this.places = places;
+      console.log(this.places);
+    })
   }
 };
 </script>
