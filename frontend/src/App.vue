@@ -67,7 +67,9 @@ export default {
         this.zoom = 15;
       });
     }
-    getAllPlaces().then(places => console.log(places));
+    getAllPlaces()
+      .then(places => (this.allPlaces = places))
+      .catch(() => (this.allPlaces = allPlaces));
   },
   methods: {
     updateBounds: function(bounds) {
@@ -89,7 +91,7 @@ export default {
             .includes(this.query.toLowerCase());
         })
         .filter(place => {
-          const [lat, lng] = [place.Latitude, place.Longitude];
+          const [lat, lng] = [place.lat, place.long];
           const { latRange, lngRange } = this.bounds;
           return isInbounds(lat, latRange) && isInbounds(lng, lngRange);
         });
