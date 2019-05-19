@@ -13,30 +13,35 @@
 <script>
 const slides = [
   {
-    title: 'Slide 1',
-    body: 'Lorem ipsum dolor sit amet'
+    title: 'What are the diferent types of Single Use Plastic.',
+    body:
+      'These are items like plastic bags, straws, coffee stirrers, soda or water bottles and most food packaging.'
   },
   {
-    title: 'Slide 2',
-    body: 'The quick brown fox jumps over the lazy dog'
+    title: 'How do they affect the environment',
+    body:
+      'More than 300 million tons of plastics are produced annually, and there are at least five trillion plastic pieces floating in our oceans. Microplastic particles are either dumped directly into the seas via sewers and rivers or form when larger chunks of plastic break down over time.'
   },
   {
-    title: 'Slide 3',
-    body: 'This is the last slide'
+    title: 'How can you get involved ',
+    body:
+      'you can reduce your personal single use plastic consumption the next time you go out to eat, order take-out, or bring home leftovers. Visit restaurants that avoid passing single use plastics to consumers'
   }
 ];
 
 export default {
   name: 'PagingDialog',
-  props: {
-    slides: slides
-  },
   data: function() {
-    const open = !this.visited;
     return {
-      open,
-      slide: 0
+      open: true,
+      slide: 0,
+      slides: slides
     };
+  },
+  mounted: function() {
+    if (localStorage.getItem('has-visited')) {
+      this.open = false;
+    }
   },
   computed: {
     content: function() {

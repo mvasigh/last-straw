@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <Card v-for="place in places" :place="place"/>
+  <div class="card-list">
+    <Card v-for="place in places" :place="place" v-bind:key="place.id"/>
   </div>
 </template>
 
@@ -22,3 +22,10 @@ export default {
   }
 };
 </script>
+
+<style lang="scss">
+.card-list {
+  max-height: 100%;
+  overflow-y: scroll;
+}
+</style>
