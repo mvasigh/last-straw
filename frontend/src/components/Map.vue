@@ -9,32 +9,53 @@
       @update:bounds="boundsUpdated"
     >
       <l-tile-layer :url="url"></l-tile-layer>
+      <template v-for="(place, index) in markers">
+        <l-marker :lat-lng="place.latlng" v-bind:key="index">
+          <l-tooltip>{{ place.name }}</l-tooltip>
+        </l-marker>
+      </template>
     </l-map>
   </div>
 </template>
 
 <script>
-import { LMap, LTileLayer } from 'vue2-leaflet';
+import { LMap, LTileLayer, LMarker, LTooltip } from 'vue2-leaflet';
 
 const getRange = (val1, val2) => [Math.min(val1, val2), Math.max(val1, val2)];
 
 export default {
   components: {
     LMap,
-    LTileLayer
+    LTileLayer,
+    LMarker,
+    LTooltip
   },
   props: {
     pins: Array,
     center: Array,
     zoom: Number,
-    bounds: Object
+    bounds: Object,
+    places: Array
   },
   data() {
     return {
-      url: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png'
+      url: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
+      markers: this.placesToMarkers(this.places)
     };
   },
+  watch: {
+    places: function(newPlaces) {
+      this.markers = this.placesToMarkers(newPlaces);
+      console.log(this.markers);
+    }
+  },
   methods: {
+    placesToMarkers(places) {
+      return places.map(place => ({
+        latlng: [place.lat, place.long],
+        name: place.name
+      }))
+    },
     zoomUpdated(zoom) {
       this.$emit('zoom-updated', zoom);
     },

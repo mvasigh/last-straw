@@ -12,6 +12,7 @@
             :bounds="bounds"
             :zoom="zoom"
             :center="center"
+            :places="places"
             @bounds-updated="updateBounds"
             @center-updated="updateCenter"
             @zoom-updated="updateZoom"
@@ -81,7 +82,7 @@ export default {
     updateZoom: function(zoom) {
       this.zoom = zoom;
     },
-    filterPlaces: debounce(300, function() {
+    filterPlaces: debounce(500, function() {
       const places = this.allPlaces
         .filter(place => {
           // filter by query
